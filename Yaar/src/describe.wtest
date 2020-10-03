@@ -1,0 +1,51 @@
+import piratas.*
+import misiones.*
+import barcos.*
+
+describe "consignas de parcial" {
+	
+	var elKayac
+	var susana 
+	var misionDelOlimpo
+	
+	fixture {
+		elKayac = new Barco(mision = busquedaDelTesoro, tripulantes = #{}, capacidad = 2 )
+		susana = new Pirata(items = ["llaveDelTesoro", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus"], cantidadDeDinero = 0, nivelDeEbriedad = 0)
+		misionDelOlimpo = new ConvertirseEnLeyenda(itemParaSerLeyenda = "elRayoDeZeus")
+	}
+	
+	test "Saber si un pirata es util para una mision" {
+		
+		assert.that(barbanegra.esUtil(busquedaDelTesoro))
+
+	}
+	
+	test "Saber si un pirata puede formar parte de la tripulación de un barco." {
+		
+		assert.that(elKayac.puedeSerTripulante(barbanegra))
+		
+	}
+	
+	test "Agregar tripulante" {
+		
+		assert.that(elKayac.formaParte(barbanegra).negate())
+		
+		elKayac.agregarTripulante(barbanegra)
+		
+		assert.that(elKayac.formaParte(barbanegra))
+		
+	}
+	
+	test "Un Barco cambia de mision" {
+		
+		elKayac.agregarTripulante(barbanegra)
+		elKayac.agregarTripulante(susana)
+		elKayac.cambiarMision(misionDelOlimpo)
+		
+		
+		
+		assert.that(elKayac.tripulantes().contains(barbanegra).negate())
+		assert.that(elKayac.tripulantes().contains(susana))
+		
+	}
+}
