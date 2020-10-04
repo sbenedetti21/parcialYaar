@@ -1,3 +1,5 @@
+import piratas.*
+
 class Mision {
     
     method cumpleRequisitosBarco(unBarco) {
@@ -8,7 +10,7 @@ class Mision {
 object busquedaDelTesoro inherits Mision {
 
     method cumpleRequisitos(unPirata) {
-       return unPirata.sabeBuscar() and unPirata.tieneMasDeXMonedas(5)     
+       return unPirata.sabeBuscar() and unPirata.tieneMenosDeXMonedas(5)     
     }
     
     override method cumpleRequisitosBarco(unBarco) {
@@ -32,7 +34,7 @@ class Saqueo inherits Mision {
     var victima
     
     method cumpleRequisitos(unPirata) {
-        return unPirata.seAnimaASaquearA(victima) and unPirata.tieneMasDeXMonedas(cantidadDeMonedasNecesarias)
+        return victima.puedeSerSaqueadoPor(unPirata) and unPirata.tieneMasDeXMonedas(cantidadDeMonedasNecesarias)
     }
 
     override method cumpleRequisitosBarco(unBarco) {

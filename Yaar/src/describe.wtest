@@ -13,7 +13,7 @@ describe "consignas de parcial" {
 	
 	fixture {
 		elKayac = new Barco(mision = busquedaDelTesoro, tripulantes = #{}, capacidad = 2 )
-		elPerlaNegra = new Barco(mision = busquedaDelTesoro, tripulantes = #{}, capacidad = 2 )
+		elPerlaNegra = new Barco(mision = busquedaDelTesoro, tripulantes = #{}, capacidad = 3 )
 		susana = new Pirata(items = ["llaveDelTesoro", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus"], cantidadDeDinero = 2, nivelDeEbriedad = 85)
 		misionDelOlimpo = new ConvertirseEnLeyenda(itemParaSerLeyenda = "elRayoDeZeus")
 		mdq = new CiudadCostera(cantidadDeHabitantes = 3)
@@ -72,9 +72,44 @@ describe "consignas de parcial" {
 		
 	}
 	
-	test "el perla negra es temible" {
+	test "el kayac es temible" {
 		
-		assert.that(elPerlaNegra.esTemible())
+		elKayac.agregarTripulante(barbanegra)
+		elKayac.agregarTripulante(susana)
+		
+		assert.that(elKayac.esTemible())
+		
+	}
+	
+	test "hay 3 borrachos en el perla negra" {
+		
+		elPerlaNegra.agregarTripulante(new Pirata(items = ["llaveDelTesoro", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus"], cantidadDeDinero = 1, nivelDeEbriedad = 95))
+		elPerlaNegra.agregarTripulante(new Pirata(items = ["llaveDelTesoro", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus"], cantidadDeDinero = 1, nivelDeEbriedad = 92))
+		elPerlaNegra.agregarTripulante(new Pirata(items = ["llaveDelTesoro", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus"], cantidadDeDinero = 1, nivelDeEbriedad = 98))
+		
+		assert.equals(3, elPerlaNegra.cantidadDeTripulantes())
+	}
+	
+	test "carla es la borracha mas rica del perla negra" {
+		
+		const carla = new Pirata(items = ["llaveDelTesoro", "grogXD", "brujula"], cantidadDeDinero = 4, nivelDeEbriedad = 100)
+		const laura = new Pirata(items = ["llaveDelTesoro", "grogXD", "mapa"], cantidadDeDinero = 3, nivelDeEbriedad = 91)
+		
+		elPerlaNegra.agregarTripulante(carla)
+		elPerlaNegra.agregarTripulante(laura)
+		
+		assert.equals(carla, elPerlaNegra.elBorrachoMasRico())
+	}
+	
+	test "los tripulantes del perla negra tienen en total 4 items distintos" {
+		
+		const carla = new Pirata(items = ["llaveDelTesoro", "grogXD", "brujula"], cantidadDeDinero = 4, nivelDeEbriedad = 100)
+		const laura = new Pirata(items = ["llaveDelTesoro", "grogXD", "mapa"], cantidadDeDinero = 3, nivelDeEbriedad = 91)
+		
+		elPerlaNegra.agregarTripulante(carla)
+		elPerlaNegra.agregarTripulante(laura)
+		
+		assert.equals(4, elPerlaNegra.cantidadDeItemsDistintosEnLaTripulacion())
 		
 	}
 }

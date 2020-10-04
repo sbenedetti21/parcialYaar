@@ -58,5 +58,31 @@ class Barco {
         return mision.cumpleRequisitosBarco(self)
     }
 
+    method esVulnerableA(unBarco){
+        return self.cantidadDeTripulantes() <= unBarco.cantidadDeTripulantes() / 2 
+    }
 
+    method puedeSerSaqueadoPor(unPirata) {
+        return unPirata.estaPasadoDeGrogXD()
+    }
+
+    method estanTodosBorrachos() {
+        return tripulantes.all({unPirata => unPirata.estaPasadoDeGrogXD()})
+    }
+    
+    method cuantosEstanBorrachos(){
+        return tripulantes.count({tripulante => tripulante.estaPasadoDeGrogXD() })
+    }
+    
+    method quienesEstanBorrachos(){
+        return tripulantes.filter({tripulante => tripulante.estaPasadoDeGrogXD()})
+    }
+
+    method elBorrachoMasRico(){
+        return self.quienesEstanBorrachos().max({ tripulanteBorrracho => tripulanteBorrracho.cantidadDeDinero() })
+    }
+    
+    method cantidadDeItemsDistintosEnLaTripulacion(){
+        return tripulantes.flatMap({tripulante => tripulante.items()}).size()
+    }
 }

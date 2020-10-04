@@ -1,4 +1,3 @@
-import piratas.*
 import misiones.*
 import barcos.*
 
@@ -16,7 +15,7 @@ class Pirata {
         return unaMision.cumpleRequisitos(self)
     }
     
-    method tieneMasDeXMonedas(cantidad) {
+    method tieneMenosDeXMonedas(cantidad) {
         return cantidadDeDinero < cantidad
     }
 
@@ -41,6 +40,33 @@ class Pirata {
         return cantidadDeDinero == 0 
     }
 
+    method estaPasadoDeGrogXD(){
+        return nivelDeEbriedad > 90
+    }
+	
+	method seAnimaASaquearA(unaVictima) {
+        return unaVictima.puedeSerSaqueadaPor(self)
+    }
+    
+    method cantidadDeDinero(){
+        return cantidadDeDinero
+    }
+    
+    method items() {
+        return items
+    }
+    
 } 
 
-const barbanegra = new Pirata(items = ["brujula", "cuchillo", "cuchillo", "dienteDeOro", "grogXD", "grogXD", "grogXD"], nivelDeEbriedad = 0, cantidadDeDinero = 0)
+const barbanegra = new Pirata(items = ["brujula", "cuchillo", "cuchillo", "dienteDeOro", "grogXD", "grogXD", "grogXD"], nivelDeEbriedad = 0, cantidadDeDinero = 1)
+
+class EspiaDeLaCorona inherits Pirata {
+    
+    override method estaPasadoDeGrogXD() {
+        return false
+    }
+
+    override method seAnimaASaquearA(unaVictima) {
+        return super(unaVictima) and self.tiene("permisoDeLaCorona")
+    }
+}
