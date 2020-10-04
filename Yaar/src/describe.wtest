@@ -1,17 +1,22 @@
 import piratas.*
 import misiones.*
 import barcos.*
+import ciudadCostera.*
 
 describe "consignas de parcial" {
 	
 	var elKayac
 	var susana 
 	var misionDelOlimpo
+	var mdq
+	var elPerlaNegra
 	
 	fixture {
 		elKayac = new Barco(mision = busquedaDelTesoro, tripulantes = #{}, capacidad = 2 )
-		susana = new Pirata(items = ["llaveDelTesoro", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus"], cantidadDeDinero = 0, nivelDeEbriedad = 0)
+		elPerlaNegra = new Barco(mision = busquedaDelTesoro, tripulantes = #{}, capacidad = 2 )
+		susana = new Pirata(items = ["llaveDelTesoro", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus", "grogXD", "elRayoDeZeus"], cantidadDeDinero = 2, nivelDeEbriedad = 85)
 		misionDelOlimpo = new ConvertirseEnLeyenda(itemParaSerLeyenda = "elRayoDeZeus")
+		mdq = new CiudadCostera(cantidadDeHabitantes = 3)
 	}
 	
 	test "Saber si un pirata es util para una mision" {
@@ -46,6 +51,30 @@ describe "consignas de parcial" {
 		
 		assert.that(elKayac.tripulantes().contains(barbanegra).negate())
 		assert.that(elKayac.tripulantes().contains(susana))
+		
+	}
+	
+	test "Susana es la mas ebria" {
+		
+		elKayac.agregarTripulante(barbanegra)
+		elKayac.agregarTripulante(susana)
+		
+		assert.equals(susana, elKayac.elMasEbrio())
+		
+	}
+	
+	test "el Kayac ancla en una mdq" {
+		
+		elKayac.agregarTripulante(barbanegra)
+		elKayac.agregarTripulante(susana)
+		
+		elKayac.anclarEn(mdq)
+		
+	}
+	
+	test "el perla negra es temible" {
+		
+		assert.that(elPerlaNegra.esTemible())
 		
 	}
 }

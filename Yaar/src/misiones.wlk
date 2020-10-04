@@ -8,7 +8,7 @@ class Mision {
 object busquedaDelTesoro inherits Mision {
 
     method cumpleRequisitos(unPirata) {
-       return unPirata.sabeBuscar() and unPirata.esPobre()      
+       return unPirata.sabeBuscar() and unPirata.tieneMasDeXMonedas(5)     
     }
     
     override method cumpleRequisitosBarco(unBarco) {
@@ -24,4 +24,19 @@ class ConvertirseEnLeyenda inherits Mision {
        return unPirata.tieneMasDeDiezItems() and unPirata.tiene(itemParaSerLeyenda)    
     }
 
+}
+
+class Saqueo inherits Mision {
+    
+    var property cantidadDeMonedasNecesarias
+    var victima
+    
+    method cumpleRequisitos(unPirata) {
+        return unPirata.seAnimaASaquearA(victima) and unPirata.tieneMasDeXMonedas(cantidadDeMonedasNecesarias)
+    }
+
+    override method cumpleRequisitosBarco(unBarco) {
+        return super(unBarco) and victima.esVulnerableA(unBarco)
+    }
+   
 }
